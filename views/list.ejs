@@ -1,0 +1,29 @@
+<%- include("header") -%>
+    <div class="box" id="heading">
+        <h1><%=listTitle%></h1>
+    </div>
+
+    <div class="box" >
+        <% newItems.forEach(item=>{ %>
+        <form action="/delete" method="post">
+            <div class="item">
+                <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">   <!--onChange is required so that the form data is submitted when the user clicks on the checkbox. no need for a new button of type submit
+                value is required so that the id can be passed to the server, to be used for deletion-->
+                <p><%= item.name %></p>
+            </div>
+            <input type="hidden" name="listName" value="<%=listTitle%>">
+        </form>
+        <% }) %>
+        <form class="item" action="/" method="post">
+            <input type="text" name="newItem" placeholder="New Item">
+            <button class="newItem" type="submit" name="list" value="<%=listTitle%>">+</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <form class="item" action="/newList" method="post">
+            <input type="text" name="newList" placeholder="New List">
+            <button class="newItem" type="submit" name="button">+</button>
+        </form>
+    </div>
+<%- include("footer") -%>
